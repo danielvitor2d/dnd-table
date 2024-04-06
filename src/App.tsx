@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
 import { faker } from '@faker-js/faker'
+import { useMemo, useState } from 'react'
 import Table, { Column } from './components/table'
 
 type Person = {
@@ -113,7 +113,7 @@ export default function App() {
   }
 
   return (
-    <div className="pt-10 w-full flex flex-col gap-10 items-center">
+    <div className="pt-10 w-[1000px] flex flex-col gap-10 items-center">
       <h1 className="font-bold text-3xl">Tabela com colunas reorganizáveis</h1>
 
       <div className="flex flex-col gap-3">
