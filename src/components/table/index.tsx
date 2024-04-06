@@ -23,8 +23,10 @@ import {
   Cell,
   ColumnDef,
   Header,
+  SortingState,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 import { CSSProperties, useMemo, useState } from 'react'
@@ -61,6 +63,59 @@ function RightIcon() {
         strokeLinejoin="round"
         d="m8.25 4.5 7.5 7.5-7.5 7.5"
       />
+    </svg>
+  )
+}
+
+function UpIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      className="w-4 h-4"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m4.5 15.75 7.5-7.5 7.5 7.5"
+      />
+    </svg>
+  )
+}
+
+function DownIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      className="w-4 h-4"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+      />
+    </svg>
+  )
+}
+
+function MinusIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-4 h-4"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
     </svg>
   )
 }
@@ -104,11 +159,31 @@ function DraggableTableHeader<T>({ header }: { header: Header<T, unknown> }) {
       style={style}
       className="px-6 py-3"
     >
-      <button {...attributes} {...listeners}>
-        {header.isPlaceholder
-          ? null
-          : flexRender(header.column.columnDef.header, header.getContext())}
-      </button>
+      <div className="flex flex-row gap-1 items-center">
+        <button {...attributes} {...listeners}>
+          {flexRender(header.column.columnDef.header, header.getContext())}
+        </button>
+        <div
+          className={
+            header.column.getCanSort() ? 'cursor-pointer select-none' : ''
+          }
+          onClick={header.column.getToggleSortingHandler()}
+          title={
+            header.column.getCanSort()
+              ? header.column.getNextSortingOrder() === 'asc'
+                ? 'Sort ascending'
+                : header.column.getNextSortingOrder() === 'desc'
+                  ? 'Sort descending'
+                  : 'Clear sort'
+              : undefined
+          }
+        >
+          {{
+            asc: <UpIcon />,
+            desc: <DownIcon />,
+          }[header.column.getIsSorted() as string] ?? <MinusIcon />}
+        </div>
+      </div>
     </th>
   )
 }
@@ -155,16 +230,21 @@ export default function Table<T>({
   )
   const lastPage = useMemo(() => Math.ceil(total / pageSize), [total, pageSize])
 
+  const [sorting, setSorting] = useState<SortingState>([])
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     pageCount: total / pageSize + (total % pageSize === 0 ? 0 : 1),
     state: {
       columnOrder,
+      sorting,
     },
     manualPagination: true,
     onColumnOrderChange: setColumnOrder,
+    onSortingChange: setSorting,
     debugTable: true,
     debugHeaders: true,
     debugColumns: true,

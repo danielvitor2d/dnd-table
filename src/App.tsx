@@ -42,6 +42,7 @@ export default function App() {
     const data = [
       {
         accessorFn: (_, idx) => idx + 1,
+        sortingFn: 'alphanumeric',
         cell: (info) => info.getValue(),
         header: 'Índice',
         id: 'idx',
@@ -50,12 +51,14 @@ export default function App() {
       {
         accessorKey: 'name',
         cell: (info) => info.getValue(),
+        sortingFn: 'alphanumeric',
         header: () => <span>Primeiro Nome</span>,
         id: 'firstName',
         size: 150,
       },
       {
         accessorFn: (row) => row.name,
+        sortingFn: 'alphanumeric',
         cell: (info) => info.getValue(),
         header: () => <span>Último Nome</span>,
         id: 'lastName',
@@ -63,24 +66,28 @@ export default function App() {
       },
       {
         accessorKey: 'age',
+        sortingFn: 'alphanumeric',
         header: () => 'Idade',
         id: 'age',
         size: 120,
       },
       {
         accessorFn: (info) => info.name,
+        sortingFn: 'alphanumeric',
         header: () => <span>Visitas</span>,
         id: 'visits',
         size: 120,
       },
       {
         accessorFn: (info) => info.name,
+        sortingFn: 'alphanumeric',
         header: 'Status',
         id: 'status',
         size: 150,
       },
       {
         accessorFn: (info) => info.name,
+        sortingFn: 'alphanumeric',
         header: 'Progresso',
         id: 'progress',
         size: 180,
@@ -113,7 +120,7 @@ export default function App() {
   }
 
   return (
-    <div className="pt-10 w-[1000px] flex flex-col gap-10 items-center">
+    <div className="p-20 w-full flex flex-col gap-10 items-center">
       <h1 className="font-bold text-3xl">Tabela com colunas reorganizáveis</h1>
 
       <div className="flex flex-col gap-3">
