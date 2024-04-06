@@ -1,30 +1,16 @@
-# React + TypeScript + Vite
+# React DnD Table
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![reorder-table](https://github.com/danielvitor2d/dnd-table/assets/59886711/e53f8983-15b2-4a4f-8f68-9584719ffe16)
 
-Currently, two official plugins are available:
+Esse projeto consiste em um componente de Tabela customizado com funções como:
+- Reorganizar colunas
+- Mudar a visibilidade de colunas
+- Navegação entre páginas
+- Mudança de tamanho de página
+- Mudança para página específica
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Tecnologias
+- [React.js](https://react.dev/)
+- [Tailwindcss](https://tailwindcss.com/)
+- [@dnd-kit](https://dndkit.com/)
+- [Tanstack](https://tanstack.com/)
